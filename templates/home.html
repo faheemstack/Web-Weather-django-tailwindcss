@@ -1,0 +1,380 @@
+{% extends "base.html" %} 
+{% block title %}Home | Web Weather{% endblock title %} 
+{% block content %}
+
+<main class="text-white">
+  <section
+    class="relative z-10 flex flex-col items-center text-center px-6 pt-20 pb-16 md:pt-28 md:pb-24"
+  >
+    <h1
+      class="font-syne font-extrabold text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight mb-6 animate-fadeUp"
+      style="animation-delay: 0.2s"
+    >
+      <span class="block text-white">Welcome to</span>
+      <span class="block relative">
+        <span class="relative z-10 text-white">Web</span>
+      </span>
+      <span
+        class="block text-white/80 text-4xl md:text-5xl lg:text-6xl mt-2 font-semibold"
+        >Weather Broadcast</span
+      >
+    </h1>
+
+    <p
+      class="max-w-xl text-white/50 text-lg md:text-xl leading-relaxed mb-10 animate-fadeUp font-light"
+      style="animation-delay: 0.35s"
+    >
+      Your live window into the world's weather. Real-time conditions,
+      beautifully presented — from Karachi to Kyoto, London to Lahore.
+    </p>
+
+    <div
+      class="flex flex-col sm:flex-row gap-4 animate-fadeUp"
+      style="animation-delay: 0.5s"
+    >
+      <a
+        href="/weather/"
+        class="btn-register group flex items-center justify-center gap-3 bg-accent text-[#0c1a2e] font-syne font-bold text-base px-8 py-4 rounded-2xl hover:scale-105 active:scale-95 transition-all"
+      >
+        <svg
+          class="w-5 h-5 group-hover:rotate-12 transition-transform"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2.5"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
+        </svg>
+        Search Live Weather
+      </a>
+      <a
+        href="#"
+        class="flex items-center justify-center gap-3 bg-white/8 border border-white/15 text-white font-syne font-bold text-base px-8 py-4 rounded-2xl hover:bg-white/15 hover:scale-105 active:scale-95 transition-all backdrop-blur-md"
+      >
+        <svg
+          class="w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2.5"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M4 6h16M4 10h16M4 14h16M4 18h16"
+          />
+        </svg>
+        View Weather Archive
+      </a>
+    </div>
+
+    <div
+      class="relative mt-20 w-64 h-64 md:w-80 md:h-80 animate-float"
+      style="animation-delay: 0.6s"
+    >
+      <div
+        class="absolute inset-0 rounded-full bg-gradient-to-br from-sky/30 via-accent/10 to-glow/20 blur-2xl scale-110"
+      ></div>
+
+      <div
+        class="relative w-full h-full rounded-full bg-gradient-to-br from-[#0d2a4a] via-[#0c1a2e] to-[#071a30] border border-white/10 shadow-2xl overflow-hidden flex items-center justify-center"
+      >
+        <div
+          class="absolute left-0 right-0 h-1 bg-gradient-to-r from-transparent via-sky/40 to-transparent animate-scanline pointer-events-none"
+        ></div>
+
+        <div
+          class="absolute inset-0 opacity-10"
+          style="
+            background-image:
+              repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 28px,
+                rgba(86, 180, 211, 0.5) 28px,
+                rgba(86, 180, 211, 0.5) 29px
+              ),
+              repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 28px,
+                rgba(86, 180, 211, 0.5) 28px,
+                rgba(86, 180, 211, 0.5) 29px
+              );
+          "
+        ></div>
+
+        <div class="relative z-10 text-center text-white">
+          <div class="text-7xl mb-2 drop-shadow-2xl">🌍</div>
+          <div
+            class="font-mono text-[0.6rem] text-glow/80 tracking-widest uppercase"
+          >
+            Broadcasting
+          </div>
+          <div
+            class="font-mono text-[0.55rem] tracking-wider mt-0.5"
+            id="liveTime"
+          ></div>
+        </div>
+
+        <div
+          class="absolute w-2.5 h-2.5 rounded-full bg-accent shadow-[0_0_10px_rgba(255,209,102,0.8)]"
+          style="top: 16%; left: 22%; animation: pulse2 2s ease-in-out infinite"
+        ></div>
+        <div
+          class="absolute w-2 h-2 rounded-full bg-sky shadow-[0_0_8px_rgba(86,180,211,0.8)]"
+          style="
+            bottom: 20%;
+            right: 18%;
+            animation: pulse2 2.5s ease-in-out 0.5s infinite;
+          "
+        ></div>
+        <div
+          class="absolute w-1.5 h-1.5 rounded-full bg-glow shadow-[0_0_8px_rgba(6,214,160,0.8)]"
+          style="
+            top: 60%;
+            left: 15%;
+            animation: pulse2 3s ease-in-out 1s infinite;
+          "
+        ></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative z-10 px-6 md:px-12 pb-20 max-w-6xl mx-auto w-full">
+    <div class="text-center mb-12">
+      <div
+        class="font-mono text-xs text-white/30 tracking-widest uppercase mb-3"
+      >
+        What We Broadcast
+      </div>
+      <h2 class="font-syne font-bold text-3xl md:text-4xl text-white">
+        Everything you need to know<br /><span class="text-white/40"
+          >about today's sky</span
+        >
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div
+        class="group bg-white/[0.06] border border-white/10 rounded-3xl p-6 hover:bg-white/10 hover:-translate-y-2 hover:border-accent/30 transition-all duration-300 animate-slideL"
+        style="animation-delay: 0.1s"
+      >
+        <div
+          class="w-12 h-12 rounded-2xl bg-accent/15 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform"
+        >
+          🌡
+        </div>
+        <h3 class="font-syne font-bold text-lg text-white mb-2">
+          Live Temperature
+        </h3>
+        <p class="text-white/40 text-sm leading-relaxed">
+          Real-time temperature readings with feels-like index. Celsius
+          precision from the Weatherstack API.
+        </p>
+        <div
+          class="mt-4 flex items-center gap-2 text-accent/70 text-xs font-mono"
+        >
+          <span class="w-1 h-1 rounded-full bg-accent animate-blink"></span>
+          Updated every request
+        </div>
+      </div>
+
+      <div
+        class="group bg-white/[0.06] border border-white/10 rounded-3xl p-6 hover:bg-white/10 hover:-translate-y-2 hover:border-sky/30 transition-all duration-300 animate-fadeUp"
+        style="animation-delay: 0.2s"
+      >
+        <div
+          class="w-12 h-12 rounded-2xl bg-sky/15 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform"
+        >
+          💨
+        </div>
+        <h3 class="font-syne font-bold text-lg text-white mb-2">
+          Wind & Pressure
+        </h3>
+        <p class="text-white/40 text-sm leading-relaxed">
+          Wind speed, direction, and atmospheric pressure. Know before you go
+          outside.
+        </p>
+        <div class="mt-4 flex items-center gap-2 text-sky/70 text-xs font-mono">
+          <span
+            class="w-1 h-1 rounded-full bg-sky animate-blink"
+            style="animation-delay: 0.3s"
+          ></span>
+          Direction + speed
+        </div>
+      </div>
+
+      <div
+        class="group bg-white/[0.06] border border-white/10 rounded-3xl p-6 hover:bg-white/10 hover:-translate-y-2 hover:border-glow/30 transition-all duration-300 animate-slideR"
+        style="animation-delay: 0.3s"
+      >
+        <div
+          class="w-12 h-12 rounded-2xl bg-glow/15 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform"
+        >
+          ☀️
+        </div>
+        <h3 class="font-syne font-bold text-lg text-white mb-2">
+          UV & Cloud Cover
+        </h3>
+        <p class="text-white/40 text-sm leading-relaxed">
+          UV index with visual scale, cloud coverage percentage, and visibility
+          distance in km.
+        </p>
+        <div
+          class="mt-4 flex items-center gap-2 text-glow/70 text-xs font-mono"
+        >
+          <span
+            class="w-1 h-1 rounded-full bg-glow animate-blink"
+            style="animation-delay: 0.6s"
+          ></span>
+          Sun safety data
+        </div>
+      </div>
+
+      <div
+        class="group bg-white/[0.06] border border-white/10 rounded-3xl p-6 hover:bg-white/10 hover:-translate-y-2 hover:border-accent/30 transition-all duration-300 animate-slideL"
+        style="animation-delay: 0.4s"
+      >
+        <div
+          class="w-12 h-12 rounded-2xl bg-accent/15 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform"
+        >
+          💾
+        </div>
+        <h3 class="font-syne font-bold text-lg text-white mb-2">
+          Save to MongoDB
+        </h3>
+        <p class="text-white/40 text-sm leading-relaxed">
+          One-click save of complete weather snapshots to your MongoDB database
+          for historical tracking.
+        </p>
+        <div
+          class="mt-4 flex items-center gap-2 text-accent/70 text-xs font-mono"
+        >
+          <span
+            class="w-1 h-1 rounded-full bg-accent animate-blink"
+            style="animation-delay: 0.2s"
+          ></span>
+          Persistent archive
+        </div>
+      </div>
+
+      <div
+        class="group bg-white/[0.06] border border-white/10 rounded-3xl p-6 hover:bg-white/10 hover:-translate-y-2 hover:border-sky/30 transition-all duration-300 animate-fadeUp"
+        style="animation-delay: 0.5s"
+      >
+        <div
+          class="w-12 h-12 rounded-2xl bg-sky/15 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform"
+        >
+          🌍
+        </div>
+        <h3 class="font-syne font-bold text-lg text-white mb-2">
+          Any City, Anywhere
+        </h3>
+        <p class="text-white/40 text-sm leading-relaxed">
+          Search any city on the planet. From Lahore to London, Tokyo to Toronto
+          — instant results.
+        </p>
+        <div class="mt-4 flex items-center gap-2 text-sky/70 text-xs font-mono">
+          <span
+            class="w-1 h-1 rounded-full bg-sky animate-blink"
+            style="animation-delay: 0.8s"
+          ></span>
+          Global coverage
+        </div>
+      </div>
+
+      <div
+        class="group bg-white/[0.06] border border-white/10 rounded-3xl p-6 hover:bg-white/10 hover:-translate-y-2 hover:border-glow/30 transition-all duration-300 animate-slideR"
+        style="animation-delay: 0.6s"
+      >
+        <div
+          class="w-12 h-12 rounded-2xl bg-glow/15 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform"
+        >
+          🌙
+        </div>
+        <h3 class="font-syne font-bold text-lg text-white mb-2">
+          Day / Night Mode
+        </h3>
+        <p class="text-white/40 text-sm leading-relaxed">
+          Auto-switching dark sky with animated stars when the searched city is
+          currently experiencing night.
+        </p>
+        <div
+          class="mt-4 flex items-center gap-2 text-glow/70 text-xs font-mono"
+        >
+          <span
+            class="w-1 h-1 rounded-full bg-glow animate-blink"
+            style="animation-delay: 1s"
+          ></span>
+          Adaptive UI
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative z-10 border-y border-white/[0.07] py-10 px-6 mb-0">
+    <div
+      class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center"
+    >
+      <div class="animate-fadeUp" style="animation-delay: 0.1s">
+        <div class="font-syne font-extrabold text-4xl text-accent">195+</div>
+        <div class="text-white/40 text-sm mt-1">Countries Covered</div>
+      </div>
+      <div class="animate-fadeUp" style="animation-delay: 0.2s">
+        <div class="font-syne font-extrabold text-4xl text-sky">10+</div>
+        <div class="text-white/40 text-sm mt-1">Data Points Per City</div>
+      </div>
+      <div class="animate-fadeUp" style="animation-delay: 0.3s">
+        <div class="font-syne font-extrabold text-4xl text-glow">Live</div>
+        <div class="text-white/40 text-sm mt-1">Real-time Updates</div>
+      </div>
+      <div class="animate-fadeUp" style="animation-delay: 0.4s">
+        <div class="font-syne font-extrabold text-4xl text-white">Free</div>
+        <div class="text-white/40 text-sm mt-1">Open Broadcast</div>
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="relative z-10 flex flex-col items-center text-center px-6 py-24 animate-fadeUp"
+  >
+    <div class="font-mono text-xs text-glow/60 tracking-widest uppercase mb-4">
+      Start Watching
+    </div>
+    <h2
+      class="font-syne font-extrabold text-4xl md:text-5xl text-white mb-4 leading-tight"
+    >
+      What's the weather like<br />
+      <span class="text-accent">in your city today?</span>
+    </h2>
+    <p class="text-white/40 mb-8 max-w-md">
+      Enter any city name and get a full live broadcast — right now, for free.
+    </p>
+    <a
+      href="/weather/"
+      class="btn-register group inline-flex items-center gap-3 bg-accent text-[#0c1a2e] font-syne font-bold text-lg px-10 py-5 rounded-2xl hover:scale-105 active:scale-95 transition-all"
+    >
+      Launch Weather Broadcast
+      <svg
+        class="w-5 h-5 group-hover:translate-x-1 transition-transform"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2.5"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M13 7l5 5m0 0l-5 5m5-5H6"
+        />
+      </svg>
+    </a>
+  </section>
+</main>
+
+{% endblock content %}

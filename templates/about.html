@@ -1,0 +1,103 @@
+{% extends "base.html" %} 
+{% load static %}
+{% block title %}About | Web Weather{% endblock title %} 
+{% block content %}
+<main class="text-white bg-[#0c1a2e]">
+  <section class="py-16 px-6 text-center max-w-5xl mx-auto">
+    <h1 class="text-4xl md:text-5xl font-bold mb-6">
+      About Our Weather Platform
+    </h1>
+    <p class="text-gray-300 text-lg leading-relaxed">
+      Our Weather App is designed to deliver accurate real-time weather
+      forecasts, climate insights, and advanced weather alerts for users around
+      the world. We focus on building modern, reliable, and fast weather
+      services that help people plan their daily lives with confidence.
+    </p>
+    <p class="text-gray-400 mt-6">
+      Our mission is to combine powerful technology with clean design to provide
+      the best weather experience across web and mobile platforms.
+    </p>
+  </section>
+
+  <section class="pb-20 px-6">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold">Meet Our Team</h2>
+      <p class="text-gray-400 mt-3">
+        The passionate people behind the weather platform
+      </p>
+    </div>
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto">
+      
+      <div
+        class="bg-[#12233f] rounded-2xl p-6 text-center shadow-lg hover:scale-105 transition"
+      >
+        <img
+          src="{% static "img/faheem_qasim.jpg" %}"
+          class="w-28 h-28 mx-auto rounded-full mb-4 border-4 border-blue-500"
+        />
+        <h3 class="text-xl font-semibold">Faheem Qasim</h3>
+        <p class="text-blue-400 text-sm">Founder & Lead Developer</p>
+        <p class="text-gray-400 mt-3 text-sm">
+          Backend developer specializing in Python, APIs, and weather data
+          systems.
+        </p>
+      </div>
+      
+      <div
+        class="bg-[#12233f] rounded-2xl p-6 text-center shadow-lg hover:scale-105 transition"
+      >
+        <img
+          src="https://i.pravatar.cc/150?img=2"
+          class="w-28 h-28 mx-auto rounded-full mb-4 border-4 border-green-500"
+        />
+        <h3 class="text-xl font-semibold">Ali Khan</h3>
+        <p class="text-green-400 text-sm">Frontend Developer</p>
+        <p class="text-gray-400 mt-3 text-sm">
+          Expert in modern UI development using React, TailwindCSS, and
+          animations.
+        </p>
+      </div>
+     
+      <div
+        class="bg-[#12233f] rounded-2xl p-6 text-center shadow-lg hover:scale-105 transition"
+      >
+        <img
+          src="https://i.pravatar.cc/150?img=3"
+          class="w-28 h-28 mx-auto rounded-full mb-4 border-4 border-purple-500"
+        />
+        <h3 class="text-xl font-semibold">Sara Ahmed</h3>
+        <p class="text-purple-400 text-sm">Data Scientist</p>
+        <p class="text-gray-400 mt-3 text-sm">
+          Works on climate modeling, machine learning, and weather prediction
+          systems.
+        </p>
+      </div>
+     
+      <div
+        class="bg-[#12233f] rounded-2xl p-6 text-center shadow-lg hover:scale-105 transition"
+      >
+        <img
+          src="https://i.pravatar.cc/150?img=4"
+          class="w-28 h-28 mx-auto rounded-full mb-4 border-4 border-yellow-500"
+        />
+        <h3 class="text-xl font-semibold">Usman Malik</h3>
+        <p class="text-yellow-400 text-sm">Cloud Engineer</p>
+        <p class="text-gray-400 mt-3 text-sm">
+          Manages infrastructure, cloud deployment, and weather API
+          integrations.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <section class="text-center pb-20 px-6 max-w-4xl mx-auto">
+    <h2 class="text-3xl font-bold mb-6">Our Mission</h2>
+    <p class="text-gray-300 leading-relaxed">
+      We aim to build the most reliable and user-friendly weather platform that
+      helps individuals, travelers, and businesses access accurate climate data
+      anytime, anywhere.
+    </p>
+  </section>
+</main>
+
+{% endblock content %}

@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block title %}Services | Web Weather{% endblock title %}
+
+{% block content %}
+<main class="text-white ">
+    
+
+ 
+    <section class="py-16 text-center px-6">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Weather App Services</h1>
+      <p class="text-gray-300 max-w-2xl mx-auto">
+        Get accurate weather forecasts, real-time alerts, and advanced climate
+        insights with our powerful weather platform.
+      </p>
+    </section>
+
+  
+    <section class="px-6 pb-20">
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
+       
+        <div
+          class="bg-[#12233f] rounded-2xl p-8 shadow-lg hover:scale-105 transition"
+        >
+          <h2 class="text-2xl font-semibold mb-4">Free Plan</h2>
+          <p class="text-gray-300 mb-6">
+            Perfect for basic weather updates and daily forecasts.
+          </p>
+
+          <ul class="space-y-2 text-gray-300 mb-8">
+            <li>✔ Daily Forecast</li>
+            <li>✔ Basic Weather Data</li>
+            <li>✔ Mobile Friendly</li>
+          </ul>
+
+          <p class="text-3xl font-bold mb-6">Rs 0</p>
+
+          <button
+            class="w-full bg-blue-500 hover:bg-blue-600 py-3 rounded-lg font-semibold"
+          >
+            Get Started
+          </button>
+        </div>
+
+       
+        <div
+          class="bg-[#12233f] rounded-2xl p-8 shadow-lg hover:scale-105 transition border border-blue-500"
+        >
+          <h2 class="text-2xl font-semibold mb-4">Pro Plan</h2>
+          <p class="text-gray-300 mb-6">
+            Ideal for traveleRs  and professionals needing accurate weather
+            insights.
+          </p>
+
+          <ul class="space-y-2 text-gray-300 mb-8">
+            <li>✔ Hourly Forecast</li>
+            <li>✔ Weather Alerts</li>
+            <li>✔ Radar Maps</li>
+            <li>✔ API Access</li>
+          </ul>
+
+          <p class="text-3xl font-bold mb-6">Rs 999 / month</p>
+
+          <button
+            class="w-full bg-green-500 hover:bg-green-600 py-3 rounded-lg font-semibold"
+          >
+            Purchase Subscription
+          </button>
+        </div>
+
+        
+        <div
+          class="bg-[#12233f] rounded-2xl p-8 shadow-lg hover:scale-105 transition"
+        >
+          <h2 class="text-2xl font-semibold mb-4">Enterprise</h2>
+          <p class="text-gray-300 mb-6">
+            Advanced weather analytics for companies and developeRs .
+          </p>
+
+          <ul class="space-y-2 text-gray-300 mb-8">
+            <li>✔ Real-time Data</li>
+            <li>✔ Unlimited API Requests</li>
+            <li>✔ Global Weather Coverage</li>
+            <li>✔ Priority Support</li>
+          </ul>
+
+          <p class="text-3xl font-bold mb-6">Rs 2999 / month</p>
+
+          <button
+            class="w-full bg-purple-500 hover:bg-purple-600 py-3 rounded-lg font-semibold"
+          >
+            Purchase Subscription
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="text-center pb-16 px-6">
+      <h2 class="text-3xl font-bold mb-4">Upgrade Your Weather Experience</h2>
+      <p class="text-gray-300 mb-6">
+        Subscribe today and unlock premium weather insights and forecasts.
+      </p>
+
+      <button
+        class="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-lg font-semibold"
+      >
+        View All Plans
+      </button>
+    </section>
+
+</main>
+
+{% endblock content %}

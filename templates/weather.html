@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Weather Page | Web Weather{% endblock title %}
+{% block content %}
+ 
+ <main class="relative z-10 flex flex-col items-center min-h-screen px-4 pt-10 pb-16">
+
+    <header class="text-center mb-10 animate-slideDown">
+      <div class="font-syne text-5xl font-extrabold tracking-tight drop-shadow-lg text-white">
+        Sky<span class="text-accent">Watch</span>
+      </div>
+      <p class="text-white/70 text-sm mt-1 font-light tracking-wide">Real-time weather powered by Weatherstack</p>
+    </header>
+
+    <!-- Search -->
+    <div class="w-full max-w-lg mb-10 animate-slideDown">
+      <form method="POST" action="" class="flex gap-2 bg-white/10 border border-white/20 rounded-full px-5 py-2 backdrop-blur-xl shadow-lg focus-within:shadow-2xl transition-shadow">
+        {% csrf_token %}
+        <input
+          type="text"
+          name="city"
+          placeholder="Enter city… e.g. Karachi, London, Tokyo"
+          value="{{ city|default:'' }}"
+          autocomplete="off"
+          autofocus
+          class="flex-1 bg-transparent border-none outline-none text-white placeholder-white/40 font-dm text-base"
+        />
+        <button
+          type="submit"
+          class="btn-register px-5 py-2 rounded-full text-sm active:scale-95 transition-all"
+        >
+          Search
+        </button>
+      </form>
+    </div>
+
+
+    {% if error %}
+    <div class="w-full max-w-lg mb-6 bg-red-500/20 border border-red-400/40 text-red-100 rounded-2xl px-5 py-4 text-center backdrop-blur-md animate-fadeUp">
+      ⚠️ {{ error }}
+    </div>
+    {% endif %}
+
+    
+    {% if weather %}
+    <div class="w-full max-w-2xl animate-fadeUp">
+
+      <div class="bg-white/10 border border-white/20 rounded-3xl px-8 py-7 backdrop-blur-2xl shadow-2xl mb-4">
+
+        <div class="flex flex-wrap items-center gap-2 mb-5">
+          <span class="text-xl">📍</span>
+          <span class="font-syne text-2xl font-bold text-white">{{ weather.city }}{% if weather.region %}, {{ weather.region }}{% endif %}</span>
+          <span class="bg-white/20 text-white/70 text-xs px-3 py-1 rounded-full font-medium tracking-wide">{{ weather.country }}</span>
+          <span class="ml-auto text-white/50 text-sm">{{ weather.localtime }}</span>
+        </div>
+
+  
+        <div class="flex items-start gap-5">
+          {% if weather.icon %}
+          <img src="{{ weather.icon }}" alt="{{ weather.description }}" class="w-20 h-20 rounded-2xl object-cover shadow-xl"/>
+          {% endif %}
+          <div>
+            <div class="font-syne font-extrabold text-[5.5rem] leading-none text-white drop-shadow-lg">
+              {{ weather.temp_c }}<span class="text-[2.5rem] opacity-60">°C</span>
+            </div>
+            <div class="text-white/75 text-lg mt-1">{{ weather.description }}</div>
+            <div class="text-white/50 text-sm mt-1">Feels like {{ weather.feels_like }}°C</div>
+          </div>
+        </div>
+
+      </div>
+
+      
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+
+        <div class="bg-white/10 border border-white/20 rounded-2xl px-5 py-4 backdrop-blur-md hover:-translate-y-1 hover:bg-white/15 transition-all">
+          <div class="text-white/50 text-[0.7rem] font-medium uppercase tracking-widest mb-2">💧 Humidity</div>
+          <div class="font-syne text-2xl font-bold text-white">{{ weather.humidity }}<span class="text-sm text-white/60 font-dm font-normal">%</span></div>
+        </div>
+
+        <div class="bg-white/10 border border-white/20 rounded-2xl px-5 py-4 backdrop-blur-md hover:-translate-y-1 hover:bg-white/15 transition-all">
+          <div class="text-white/50 text-[0.7rem] font-medium uppercase tracking-widest mb-2">💨 Wind</div>
+          <div class="font-syne text-2xl font-bold text-white">{{ weather.wind_speed }}<span class="text-sm text-white/60 font-dm font-normal"> km/h</span></div>
+          <div class="text-white/40 text-xs mt-1">{{ weather.wind_dir }}</div>
+        </div>
+
+        <div class="bg-white/10 border border-white/20 rounded-2xl px-5 py-4 backdrop-blur-md hover:-translate-y-1 hover:bg-white/15 transition-all">
+          <div class="text-white/50 text-[0.7rem] font-medium uppercase tracking-widest mb-2">🔵 Pressure</div>
+          <div class="font-syne text-2xl font-bold text-white">{{ weather.pressure }}<span class="text-sm text-white/60 font-dm font-normal"> mb</span></div>
+        </div>
+
+        <div class="bg-white/10 border border-white/20 rounded-2xl px-5 py-4 backdrop-blur-md hover:-translate-y-1 hover:bg-white/15 transition-all">
+          <div class="text-white/50 text-[0.7rem] font-medium uppercase tracking-widest mb-2">👁 Visibility</div>
+          <div class="font-syne text-2xl font-bold text-white">{{ weather.visibility }}<span class="text-sm text-white/60 font-dm font-normal"> km</span></div>
+        </div>
+
+        <div class="bg-white/10 border border-white/20 rounded-2xl px-5 py-4 backdrop-blur-md hover:-translate-y-1 hover:bg-white/15 transition-all">
+          <div class="text-white/50 text-[0.7rem] font-medium uppercase tracking-widest mb-2">☀️ UV Index</div>
+          <div class="font-syne text-2xl font-bold text-white mb-2">{{ weather.uv_index }}</div>
+          <div class="h-1.5 bg-white/15 rounded-full overflow-hidden">
+            <div id="uvBar" class="h-full rounded-full bg-gradient-to-r from-emerald-400 via-yellow-300 to-rose-400 transition-all duration-1000"></div>
+          </div>
+        </div>
+
+        <div class="bg-white/10 border border-white/20 rounded-2xl px-5 py-4 backdrop-blur-md hover:-translate-y-1 hover:bg-white/15 transition-all">
+          <div class="text-white/50 text-[0.7rem] font-medium uppercase tracking-widest mb-2">☁️ Cloud Cover</div>
+          <div class="font-syne text-2xl font-bold text-white">{{ weather.cloud_cover }}<span class="text-sm text-white/60 font-dm font-normal">%</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <script>
+      const uv = {{ weather.uv_index }};
+      document.getElementById('uvBar').style.width = Math.min((uv / 12) * 100, 100) + '%';
+
+      if ("{{ weather.is_day }}" === 'no') {
+        document.getElementById('body').classList.add('night');
+        const stars = document.getElementById('stars');
+        stars.classList.remove('opacity-0');
+        stars.classList.add('opacity-100');
+        for (let i = 0; i < 120; i++) {
+          const s = document.createElement('div');
+          const size = Math.random() * 2.5 + 0.5;
+          s.className = 'absolute rounded-full bg-white animate-twinkle';
+          s.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-delay:${Math.random()*4}s;animation-duration:${2+Math.random()*3}s`;
+          stars.appendChild(s);
+        }
+      }
+    </script>
+
+    {% else %}
+   
+    <div class="text-center text-white/70 max-w-sm animate-fadeUp">
+      <span class="text-8xl block mb-4 animate-float">🌤</span>
+      <h2 class="font-syne text-2xl font-bold text-white mb-2">Where in the world?</h2>
+      <p class="text-sm leading-relaxed">Type any city name above and get instant live weather — temperature, humidity, wind, UV index, and more.</p>
+    </div>
+    {% endif %}
+
+  </main>
+
+{% endblock content %}
