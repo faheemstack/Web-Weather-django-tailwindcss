@@ -1,18 +1,28 @@
-# Node
-node_modules/
-
 # Python
-venv/
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+*.sqlite3
 
-# Environment variables
+# Django
+db.sqlite3
+media/
+
+# Virtual Environment
+venv/
+env/
+
+# Node
+node_modules/
+package-lock.json
+
+# Environment Variables
 .env
 
-# Build files
-dist/
-build/
+# Static build
+staticfiles/
 
-# OS files
+# OS
 .DS_Store
 Thumbs.db

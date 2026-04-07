@@ -1,7 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from dotenv import load_dotenv
-from django.http import HttpResponse
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
 from .forms import ContactForm
+from werkzeug.security import check_password_hash, generate_password_hash
+from .forms import CustomUser
+from django.conf import settings
 from django.utils import timezone
 from .models import get_db
 import os, requests
@@ -10,6 +16,7 @@ import os, requests
 load_dotenv()
 api = os.getenv("API_KEY")
 url = os.getenv("URL")
+collection = get_db()
 
 
 # views start here.
@@ -111,8 +118,75 @@ def contact(request):
 
 
 def login(request):
-    pass
+    if request.method == "POST":
+
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+
+        db = collection["register_user"]
+
+        user = db.find_one({"email": email})
+
+        if user and check_password_hash(user["password"], password):
+
+            request.session["user"] = user["email"]
+
+            return redirect(f"/profile/{user['email']}/")
+
+    return redirect("/")
 
 
 def register(request):
-    pass
+    if request.method == "POST":
+
+        fullname = request.POST.get("fullname")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+
+        image = request.FILES.get("profile_image")
+
+        image_name = None
+
+        db = collection["register_user"]
+
+        if image:
+
+            ext = image.name.split(".")[-1].lower()
+
+            if ext in ["jpg", "jpeg", "png", "svg"]:
+
+                image_name = image.name
+
+                path = os.path.join(settings.MEDIA_ROOT, image_name)
+
+                with open(path, "wb+") as f:
+                    for chunk in image.chunks():
+                        f.write(chunk)
+
+        db.insert_one(
+            {
+                "fullname": fullname,
+                "email": email,
+                "password": generate_password_hash(password),
+                "profile_image": image_name,
+            }
+        )
+
+        return redirect("/")
+
+
+@login_required
+def profile(request, email):
+    db = collection["register_user"]
+    user = db.find_one({"email": email})
+    return render(request, "auth/profile.html", {"user": user})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect("/")
+
+
+# page Error handling
+def page_not_found(request, exception):
+    return render(request, 'error/404.html', status=404)

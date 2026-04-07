@@ -15,4 +15,6 @@ function updateLiveDate() {
 setInterval(updateLiveDate, 1000);
 updateLiveDate();
 
-
+form.addEventListener("submit", function(e){
+    e.preventDefault();
+});
